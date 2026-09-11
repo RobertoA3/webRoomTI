@@ -1,0 +1,888 @@
+/* ==========================================================================
+   RoomTI ā3 — SISTEMA VISUAL EN AZUL CLÍNICO
+   Dirección: Arquitectónica, biomédica y luminosa
+   Paleta: Azul Clínico (#092c57, #0f3d75, #0250a3) | Blanco Puro (#ffffff)
+   ========================================================================== */
+
+/* 1. Reset y Variables de Identidad */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Paleta Azul Clínico (Sin verdes ni fondos oscuros) */
+  --color-blue-dark: #092c57;
+  --color-blue-primary: #0f3d75;
+  --color-blue-muted: #245288;
+  --color-blue-accent: #0250a3;
+  --color-blue-light: #f0f5fc;
+  --color-blue-border: rgba(15, 61, 117, 0.18);
+  --color-blue-subtle: rgba(15, 61, 117, 0.06);
+
+  --color-white: #ffffff;
+  
+  --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  
+  --radius-max: 6px;
+  --fluid-gutter: clamp(22px, 5.5vw, 96px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: #f7f5ef;
+  color: var(--color-blue-primary);
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   2. FONDO GLOBAL: Canvas Fijo y Secuencia Continua de Inicio a Fin
+   ========================================================================== */
+
+.global-background-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.global-initial-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.global-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+}
+
+/* Tipografía y Jerarquía */
+.section-title,
+.section-copy,
+.section-nav,
+.section-brand,
+.section-heading,
+.gallery-heading,
+.contact-title {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+}
+
+.section-title em,
+.section-heading em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Insignias / Badges Clínicos en Azul */
+.section-badge {
+  font-size: 35px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #000000;
+  opacity: 0.85;
+  margin-bottom: 22px;
+  display: inline-block;
+}
+
+.badge-blue {
+  color: var(--color-blue-accent);
+  opacity: 1;
+}
+
+/* Botones en Azul Clínico (Sin Verdes) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  padding: 14px 28px;
+  border-radius: var(--radius-max);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-blue-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-blue-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-blue-accent);
+  border-color: var(--color-blue-accent);
+}
+
+.btn-large {
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn:focus-visible,
+.section-brand:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-blue-accent);
+  outline-offset: 4px;
+}
+
+/* ==========================================================================
+   3. HERO SECTION (100svh, Fondo Transparente)
+   Define la primera vista de la landing: marca, navegación, texto editorial,
+   CTA principal y estructura general del bloque hero.
+   ========================================================================== */
+
+.section-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-inline: var(--fluid-gutter);
+  padding-top: 98px;
+  padding-bottom: clamp(24px, 3.5vh, 48px);
+  background: transparent;
+  z-index: 10;
+}
+
+/* Barra Superior: Marca y Navegación */
+.hero-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(20px, 2.8vh, 30px) var(--fluid-gutter);
+  background: rgba(9, 44, 87, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 80;
+  border-bottom: 1px solid rgba(9, 44, 87, 0.18);
+}
+
+.section-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.brand-logo {
+  display: block;
+  height: 42px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.section-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  line-height: 1;
+}
+
+.nav-link:hover {
+  color: #dfeeff;
+  opacity: 0.9;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  top: 100%;
+  right: var(--fluid-gutter);
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 220px;
+  padding: 18px 18px 16px;
+  border-radius: 14px;
+  background: rgba(9, 44, 87, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 40px rgba(9, 44, 87, 0.25);
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.hero-topbar.menu-open .mobile-nav-panel {
+  display: flex;
+}
+
+.hero-topbar.menu-open {
+  background: rgba(9, 44, 87, 0.82);
+}
+
+/* Bloque Editorial: Centrado en pantalla */
+.hero-editorial {
+  width: calc(100% - 100px);
+  max-width: 1200px;
+  margin: auto;
+  padding-block: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-text-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 1.2em 1.4em 1em;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: clamp(58px, 7.4vw, 118px);
+  font-weight: 520;
+  line-height: 0.91;
+  letter-spacing: 0;
+  color: var(--color-blue-primary);
+  margin-bottom: 24px;
+}
+
+.title-row {
+  display: inline-block;
+  padding: 0.08em 0.2em;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+}
+
+.title-italic {
+  display: block;
+}
+
+.section-copy {
+  font-size: clamp(16px, 1.25vw, 19px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #000000;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Pie del Hero */
+.hero-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: clamp(24px, 3.5vh, 40px);
+}
+
+.footer-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-blue-dark);
+  opacity: 0.85;
+}
+
+.meta-slash {
+  font-weight: 400;
+  opacity: 0.45;
+}
+
+.footer-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-blue-primary);
+  opacity: 0.7;
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-blue-accent);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ==========================================================================
+   4. SECCIÓN: CARACTERÍSTICAS DE LAS HABITACIONES DE CLÍNICAS
+   Presenta los atributos arquitectónicos y clínicos de la habitación hospitalaria.
+   Se mantiene con fondo transparente para que el video de fondo siga visible.
+   ========================================================================== */
+
+.section-clinical-rooms {
+  position: relative;
+  width: 100%;
+  padding-top: clamp(100px, 15vh, 180px);
+  padding-bottom: clamp(120px, 18vh, 220px);
+  padding-inline: var(--fluid-gutter);
+  background: transparent;
+  z-index: 1;
+}
+
+.content-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.editorial-header {
+  max-width: 760px;
+  margin-bottom: clamp(56px, 8vh, 88px);
+}
+
+.section-heading {
+  font-size: clamp(48px, 6.3vw, 102px);
+  font-weight: 520;
+  line-height: 0.91;
+  letter-spacing: 0;
+  color: var(--color-blue-dark);
+  margin-bottom: 26px;
+}
+
+.section-lead {
+  font-size: clamp(17px, 1.35vw, 21px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--color-blue-muted);
+  max-width: 620px;
+}
+
+/* Grid de Características Clínicas (Tarjetas Ligeras Semitransparentes) */
+.clinical-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 36px);
+}
+
+.feature-card {
+  border: 1px solid var(--color-blue-border);
+  border-radius: var(--radius-max);
+  padding: clamp(28px, 3.5vw, 36px);
+  background-color: rgba(247, 243, 234, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-blue-accent);
+}
+
+.feature-number {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-blue-accent);
+  margin-bottom: 18px;
+}
+
+.feature-title {
+  font-size: clamp(20px, 1.6vw, 24px);
+  font-weight: 520;
+  letter-spacing: 0;
+  color: var(--color-blue-dark);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.feature-text {
+  font-size: clamp(14.5px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--color-blue-primary);
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   5. SECCIÓN FINAL BLANCA: FUSIÓN CON EL FINAL DEL VIDEO & SERVICIOS ROOMTI (www.roomti.cl)
+   Crea la transición visual hacia un fondo blanco puro y expone la plataforma,
+   los servicios y los indicadores de valor del sistema RoomTI.
+   ========================================================================== */
+
+.section-white-roomti {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-white);
+  color: var(--color-blue-dark);
+  z-index: 1;
+}
+
+/* Degradado de fusión superior que conecta el final del video con el fondo blanco */
+.white-section-fusion {
+  position: absolute;
+  top: -160px;
+  left: 0;
+  right: 0;
+  height: 160px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 75px, #ffffff 160px);
+  z-index: 2;
+}
+
+.white-section-inner {
+  position: relative;
+  width: 100%;
+  padding-top: clamp(60px, 8vh, 100px);
+  padding-bottom: clamp(60px, 8vh, 100px);
+  padding-inline: var(--fluid-gutter);
+  z-index: 1;
+}
+
+.text-dark-blue {
+  color: var(--color-blue-dark);
+}
+
+.text-blue-muted {
+  color: var(--color-blue-muted);
+}
+
+/* Grid de Servicios RoomTI (Extraídos de www.roomti.cl) */
+.roomti-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 3.5vw, 40px);
+  margin-bottom: clamp(64px, 8vh, 96px);
+}
+
+.service-block {
+  border-top: 1px solid var(--color-blue-border);
+  padding-top: 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-icon-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-blue-accent);
+  margin-bottom: 14px;
+}
+
+.service-name {
+  font-size: clamp(20px, 1.65vw, 24px);
+  font-weight: 520;
+  color: var(--color-blue-dark);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.service-description {
+  font-size: clamp(14.5px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-blue-muted);
+}
+
+/* Fila de Métricas de Impacto */
+.roomti-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+  padding: clamp(32px, 4vw, 48px);
+  border: 1px solid var(--color-blue-border);
+  border-radius: var(--radius-max);
+  background-color: var(--color-blue-light);
+  margin-bottom: clamp(80px, 10vh, 120px);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.metric-value {
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-blue-accent);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.metric-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-blue-dark);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   6. GALERÍA DE CAMAS HOSPITALARIAS (2 Fotografías en Alta Calidad y Distintos Ángulos)
+   Muestra dos vistas técnicas del equipamiento clínico con leyendas descriptivas,
+   reforzando el valor visual del producto hospitalario.
+   ========================================================================== */
+
+.beds-gallery-section {
+  width: 100%;
+  margin-bottom: clamp(80px, 10vh, 120px);
+}
+
+.gallery-header {
+  max-width: 680px;
+  margin-bottom: clamp(40px, 5vh, 60px);
+}
+
+.gallery-heading {
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 520;
+  color: var(--color-blue-dark);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.gallery-sub {
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-blue-muted);
+}
+
+.beds-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 48px);
+}
+
+.bed-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-wrapper {
+  width: 100%;
+  border-radius: var(--radius-max);
+  overflow: hidden;
+  border: 1px solid var(--color-blue-border);
+  box-shadow: 0 8px 32px rgba(9, 44, 87, 0.08);
+  aspect-ratio: 16 / 9;
+  background-color: var(--color-blue-light);
+}
+
+.bed-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.bed-figure:hover .bed-img {
+  transform: scale(1.02);
+}
+
+.bed-caption {
+  padding-top: 18px;
+}
+
+.caption-angle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-blue-accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.caption-detail {
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-blue-muted);
+}
+
+/* ==========================================================================
+   7. BLOQUE DE CONTACTO OFICIAL ROOMTI (www.roomti.cl)
+   Encierra el CTA final para solicitar demo, con información institucional y
+   datos de contacto para convertir visitas en oportunidades comerciales.
+   ========================================================================== */
+
+.roomti-contact-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: clamp(36px, 5vw, 64px);
+  border: 1px solid var(--color-blue-border);
+  border-radius: var(--radius-max);
+  background-color: var(--color-blue-light);
+  margin-bottom: clamp(60px, 8vh, 90px);
+}
+
+.contact-text-col {
+  max-width: 620px;
+}
+
+.contact-title {
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 520;
+  color: var(--color-blue-dark);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.contact-desc {
+  font-size: clamp(15px, 1.15vw, 17.5px);
+  line-height: 1.5;
+  color: var(--color-blue-muted);
+  margin-bottom: 24px;
+}
+
+.contact-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-blue-dark);
+}
+
+.contact-link {
+  color: var(--color-blue-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.white-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-blue-border);
+  font-size: 12px;
+  color: var(--color-blue-muted);
+}
+
+.footer-brand {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-blue-dark);
+  margin-right: 16px;
+}
+
+.footer-tag {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   8. ADAPTABILIDAD RESPONSIVE (Breakpoint <= 760px)
+   Reordena y ajusta el contenido para pantallas pequeñas sin perder jerarquía,
+   legibilidad ni claridad en la navegación y secciones principales.
+   ========================================================================== */
+
+@media (max-width: 760px) {
+  .section-hero {
+    padding-inline: 22px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .section-nav {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .hero-topbar {
+    padding-right: 22px;
+  }
+
+  .hero-editorial {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 86px;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-title {
+    font-size: clamp(46px, 13vw, 64px);
+    margin-bottom: 16px;
+  }
+
+  .section-copy {
+    margin-bottom: 22px;
+    font-size: 15.5px;
+    line-height: 1.4;
+  }
+
+  .hero-footer {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 24px;
+    padding-bottom: 0;
+  }
+
+  .footer-scroll-hint {
+    display: none;
+  }
+
+  .section-clinical-rooms {
+    padding-top: 80px;
+    padding-bottom: 100px;
+    padding-inline: 22px;
+  }
+
+  .clinical-features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .white-section-inner {
+    padding-inline: 22px;
+  }
+
+  .roomti-services-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .roomti-metrics-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .beds-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .roomti-contact-box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+    gap: 24px;
+  }
+
+  .white-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ==========================================================================
+   9. PREFERS-REDUCED-MOTION
+   Reduce o elimina efectos visuales y movimiento cuando el usuario indica preferencia
+   por una experiencia más tranquila y accesible.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .global-canvas {
+    display: none !important;
+  }
+
+  .global-initial-frame {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .footer-scroll-hint {
+    display: none !important;
+  }
+}

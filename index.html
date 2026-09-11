@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomTI — Plataforma de Gestión y Preparación de Camas Hospitalarias</title>
+  
+  <!-- Tipografías: Instrument Sans y Newsreader -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@1,400&amp;display=swap">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       FONDO GLOBAL: Secuencia Continua de Imágenes en Canvas Fijo
+       Abarca toda la pantalla de la primera a la última sección, sin overlays
+       ========================================================================= -->
+  <div class="global-background-stage" aria-hidden="true">
+    <img 
+      src="graficas/sequence/frame_0001.jpg" 
+      alt="Habitación hospitalaria RoomTI" 
+      class="global-initial-frame" 
+      id="global-initial-frame"
+      loading="eager"
+    >
+    <canvas id="global-sequence-canvas" class="global-canvas"></canvas>
+  </div>
+
+  <!-- =========================================================================
+       1. HERO SECTION (100svh, Fondo Transparente)
+       ========================================================================= -->
+  <header class="section-hero" id="hero">
+    
+    <!-- Barra Superior: Marca RoomTI y Navegación en Azul Clínico -->
+    <div class="hero-topbar">
+      <a href="#hero" class="section-brand" aria-label="RoomTI Inicio">RoomTI <span class="brand-sub">ā3</span></a>
+      <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-menu" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="section-nav" aria-label="Navegación principal">
+        <a href="#habitaciones" class="nav-link">Habitaciones Clínicas</a>
+        <a href="#plataforma" class="nav-link">Plataforma RoomTI</a>
+        <a href="#galeria" class="nav-link">Camas Hospitalarias</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <nav class="mobile-nav-panel" id="mobile-nav-menu" aria-label="Menú móvil">
+        <a href="#habitaciones" class="nav-link">Habitaciones Clínicas</a>
+        <a href="#plataforma" class="nav-link">Plataforma RoomTI</a>
+        <a href="#galeria" class="nav-link">Camas Hospitalarias</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+    </div>
+
+    <!-- Bloque Editorial: Preparación de Camas Hospitalarias (Tercio Izquierdo) -->
+    <div class="hero-editorial">
+      <div class="section-badge">GESTIÓN INTEGRAL DE CAMAS</div>
+      <h1 class="section-title">
+        <span class="title-row">La habitación clínica se prepara</span>
+        <span class="title-row title-italic"><em>en silencio.</em></span>
+      </h1>
+      <p class="section-copy">
+        Hacemos visible todo el proceso de preparación y acondicionamiento de camas hospitalarias, asegurando disponibilidad inmediata, higiene certificada y confort para cada paciente.
+      </p>
+      <div class="hero-cta">
+        <a href="#plataforma" class="btn btn-primary">Conocer Plataforma RoomTI</a>
+      </div>
+    </div>
+
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         2. SECCIÓN: CARACTERÍSTICAS DE LAS HABITACIONES DE CLÍNICAS
+         Fondo transparente, revelando la secuencia continua del video
+         ========================================================================= -->
+    <section class="section-clinical-rooms" id="habitaciones" aria-labelledby="heading-habitaciones">
+      <div class="content-container">
+        
+        <!-- Encabezado de la Sección de Habitaciones -->
+        <div class="editorial-header">
+          <div class="section-badge">01 / ESTÁNDAR ARQUITECTÓNICO Y CLÍNICO</div>
+          <h2 class="section-heading" id="heading-habitaciones">
+            <span class="title-row">Espacios diseñados para</span>
+            <span class="title-row title-italic"><em>la recuperación crítica.</em></span>
+          </h2>
+          <p class="section-lead">
+            Una habitación hospitalaria de alta complejidad combina arquitectura bioclimática, aislamiento aséptico y tecnología biomecánica centrada en la seguridad del paciente.
+          </p>
+        </div>
+
+        <!-- Grid de Características de Habitaciones Clínicas (Líneas finas de 1 px) -->
+        <div class="clinical-features-grid">
+          
+          <div class="feature-card">
+            <div class="feature-number">01</div>
+            <h3 class="feature-title">Asepsia Grado Quirúrgico</h3>
+            <p class="feature-text">
+              Superficies poliméricas no porosas y bactericidas de fácil sanitización. Protocolos de desinfección terminal verificados entre cada alta y nuevo ingreso.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-number">02</div>
+            <h3 class="feature-title">Articulación Biomecánica</h3>
+            <p class="feature-text">
+              Cama clínica motorizada con 4 planos independientes: posiciones Fowler, Semi-Fowler, Trendelenburg y vascular para alivio continuo de presión.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-number">03</div>
+            <h3 class="feature-title">Tomas de Gases Integradas</h3>
+            <p class="feature-text">
+              Consola técnica de cabecera con terminales normadas de oxígeno medicinal, vacío clínico y aire comprimido, manteniendo despejado el perímetro asistencial.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-number">04</div>
+            <h3 class="feature-title">Luz y Ciclos Circadianos</h3>
+            <p class="feature-text">
+              Iluminación indirecta regulable que respeta el ritmo biológico del paciente, combinada con aislamiento acústico activo para favorecer el descanso regenerativo.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-number">05</div>
+            <h3 class="feature-title">Telemetría y Prevención de Caídas</h3>
+            <p class="feature-text">
+              Sensores de salida de cama, báscula digital calibrada y monitorización en tiempo real conectada a la central de enfermería las 24 horas.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-number">06</div>
+            <h3 class="feature-title">Rotación Eficiente de Camas</h3>
+            <p class="feature-text">
+              Ecosistema preparado para la intervención ágil de los equipos de aseo y bioingeniería, reduciendo los tiempos muertos entre admisiones.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. SECCIÓN FINAL BLANCA: FUSIÓN CON EL FINAL DEL VIDEO & SERVICIO ROOMTI (www.roomti.cl)
+         Fondo blanco puro que se funde con el último fotograma del video
+         ========================================================================= -->
+    <section class="section-white-roomti" id="plataforma" aria-labelledby="heading-roomti">
+      
+      <!-- Degradado de fusión superior: de transparente a blanco puro -->
+      <div class="white-section-fusion" aria-hidden="true"></div>
+
+      <div class="white-section-inner">
+        <div class="content-container">
+          
+          <!-- Encabezado de la Sección RoomTI -->
+          <div class="editorial-header">
+            <div class="section-badge badge-blue">02 / PLATAFORMA OFICIAL ROOMTI</div>
+            <h2 class="section-heading text-dark-blue" id="heading-roomti">
+              <span class="title-row">La plataforma líder para la</span>
+              <span class="title-row title-italic"><em>gestión integral de camas.</em></span>
+            </h2>
+            <p class="section-lead text-blue-muted">
+              Hacemos visible todo el proceso de preparación de una habitación hospitalaria, definiendo múltiples flujos de trabajo según su tipo, dimensiones e importancia institucional.
+            </p>
+          </div>
+
+          <!-- Pilares y Funcionalidades del Servicio RoomTI (Fuente: www.roomti.cl) -->
+          <div class="roomti-services-grid">
+            
+            <div class="service-block">
+              <div class="service-icon-label">WORKFLOWS</div>
+              <h3 class="service-name">Múltiples Workflows Automatizados</h3>
+              <p class="service-description">
+                El centro hospitalario define las actividades precisas por tipo de habitación: camas de hospitalización, UCI, pabellones de cirugía, box de atenciones o salas de recuperación.
+              </p>
+            </div>
+
+            <div class="service-block">
+              <div class="service-icon-label">APLICACIÓN MÓVIL</div>
+              <h3 class="service-name">App Móvil Colaborativa</h3>
+              <p class="service-description">
+                Coordina y notifica a todos los involucrados a través de sus dispositivos móviles. Permite registrar y medir los tiempos de cada etapa de preparación en tiempo real.
+              </p>
+            </div>
+
+            <div class="service-block">
+              <div class="service-icon-label">CONTROL DE SLA</div>
+              <h3 class="service-name">Aplicación de SLA y Alarmas</h3>
+              <p class="service-description">
+                Establece tiempos promedio de preparación con alertas preventivas y permite evaluar con precisión los contratos externalizados de aseo y mantenimiento.
+              </p>
+            </div>
+
+            <div class="service-block">
+              <div class="service-icon-label">GESTIÓN DE CAMAS</div>
+              <h3 class="service-name">Unidad de Gestión de Camas (UGC)</h3>
+              <p class="service-description">
+                Visión clara y precisa del estado de preparación de cada cama para el siguiente paciente, agilizando la asignación y evitando traspasos pendientes entre turnos.
+              </p>
+            </div>
+
+            <div class="service-block">
+              <div class="service-icon-label">PREDICCIÓN</div>
+              <h3 class="service-name">Predicción de Liberación</h3>
+              <p class="service-description">
+                Modelos predictivos que anticipan la disponibilidad de habitaciones para optimizar los ingresos programados y las derivaciones de urgencia.
+              </p>
+            </div>
+
+            <div class="service-block">
+              <div class="service-icon-label">COMUNICACIÓN</div>
+              <h3 class="service-name">Resolución de Imponderables</h3>
+              <p class="service-description">
+                Mensajería instantánea integrada para atender contingencias, incidencias clínicas o requerimientos especiales en un tiempo mínimo.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Métricas de Impacto RoomTI -->
+          <div class="roomti-metrics-row">
+            <div class="metric-item">
+              <div class="metric-value">-40%</div>
+              <div class="metric-label">Tiempo de preparación de habitación</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">100%</div>
+              <div class="metric-label">Trazabilidad del proceso de aseo y desinfección</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">Real-Time</div>
+              <div class="metric-label">Visibilidad de camas libres y en preparación</div>
+            </div>
+          </div>
+
+          <!-- =========================================================================
+               GALERÍA DE CAMAS HOSPITALARIAS (2 Imágenes en Alta Definición y Diferentes Ángulos)
+               ========================================================================= -->
+          <div class="beds-gallery-section" id="galeria">
+            <div class="gallery-header">
+              <div class="section-badge badge-blue">EQUIPAMIENTO CLÍNICO</div>
+              <h3 class="gallery-heading">Camas Hospitalarias RoomTI en Diferentes Ángulos</h3>
+              <p class="gallery-sub">
+                Detalle técnico del mobiliario asistencial y los sistemas ergonómicos integrados en las habitaciones gestionadas con la plataforma.
+              </p>
+            </div>
+
+            <div class="beds-gallery-grid">
+              
+              <!-- Ángulo 1: Perfil Lateral Ergonómico -->
+              <figure class="bed-figure">
+                <div class="image-wrapper">
+                  <img 
+                    src="graficas/cama_hospital_lateral.jpg" 
+                    alt="Cama hospitalaria RoomTI en perfil lateral ergonómico con articulación en 4 planos y panel de control"
+                    class="bed-img"
+                    loading="lazy"
+                  >
+                </div>
+                <figcaption class="bed-caption">
+                  <span class="caption-angle">ÁNGULO 01 — PERFIL LATERAL ERGONÓMICO</span>
+                  <p class="caption-detail">
+                    Vista lateral que destaca la articulación biomecánica en 4 planos motorizados, panel digital de control en barandillas, ruedas dobles hospitalarias con freno centralizado y tomas de gases en cabecera.
+                  </p>
+                </figcaption>
+              </figure>
+
+              <!-- Ángulo 2: Perspectiva Tres Cuartos en Suite Hospitalaria -->
+              <figure class="bed-figure">
+                <div class="image-wrapper">
+                  <img 
+                    src="graficas/cama_hospital_perspectiva.jpg" 
+                    alt="Cama clínica RoomTI en perspectiva tres cuartos dentro de una habitación hospitalaria preparada con luz natural"
+                    class="bed-img"
+                    loading="lazy"
+                  >
+                </div>
+                <figcaption class="bed-caption">
+                  <span class="caption-angle">ÁNGULO 02 — PERSPECTIVA TRES CUARTOS EN SUITE CLÍNICA</span>
+                  <p class="caption-detail">
+                    Vista panorámica con la habitación completamente acondicionada: consola mural de madera con conexiones electromédicas, iluminación ambiental indirecta, lencería estéril y mesa auxiliar touch.
+                  </p>
+                </figcaption>
+              </figure>
+
+            </div>
+          </div>
+
+          <!-- Bloque de Contacto Oficial RoomTI (www.roomti.cl) -->
+          <div class="roomti-contact-box" id="contacto">
+            <div class="contact-text-col">
+              <h3 class="contact-title">Solicite una Demo de RoomTI</h3>
+              <p class="contact-desc">
+                Descubre cómo RoomTI transforma la eficiencia hospitalaria de tu centro de salud reduciendo tiempos de espera y optimizando cada cama disponible.
+              </p>
+              <div class="contact-meta">
+                <div class="contact-line"><strong>Contacto:</strong> contacto@angulo3.com</div>
+                <div class="contact-line"><strong>Dirección:</strong> Juan Moya 915, Ñuñoa, Región Metropolitana, Chile</div>
+                <div class="contact-line"><strong>Sitio Oficial:</strong> <a href="https://www.roomti.cl" target="_blank" rel="noopener noreferrer" class="contact-link">www.roomti.cl</a></div>
+              </div>
+            </div>
+            <div class="contact-action-col">
+              <a href="https://www.roomti.cl" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Solicitar Demostración</a>
+            </div>
+          </div>
+
+          <!-- Pie Institucional -->
+          <footer class="white-footer">
+            <div class="footer-left">
+              <span class="footer-brand">RoomTI</span>
+              <span class="footer-copy">© 2026 RoomTI — Ángulo 3. Todos los derechos reservados.</span>
+            </div>
+            <div class="footer-right">
+              <span class="footer-tag">GESTIÓN INTEGRAL DE HABITACIONES Y CAMAS HOSPITALARIAS</span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
