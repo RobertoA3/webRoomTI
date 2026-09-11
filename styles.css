@@ -190,7 +190,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(20px, 2.8vh, 30px) var(--fluid-gutter);
+  padding: 12px var(--fluid-gutter);
   background: rgba(9, 44, 87, 0.72);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -208,21 +208,23 @@ body {
 
 .brand-logo {
   display: block;
-  height: 42px;
+  height: 41.14px;
   width: auto;
-  max-width: 180px;
+  max-width: 181.5px;
   object-fit: contain;
   flex-shrink: 0;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .section-nav {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 21.78px;
 }
 
 .nav-link {
-  font-size: 14px;
+  font-size: 14.52px;
   font-weight: 500;
   letter-spacing: 0;
   color: #ffffff;
