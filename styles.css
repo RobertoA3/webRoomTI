@@ -177,7 +177,8 @@ body {
   padding-inline: var(--fluid-gutter);
   padding-top: 98px;
   padding-bottom: clamp(24px, 3.5vh, 48px);
-  background: transparent;
+  /*background: transparent;*/
+  background: rgba(255, 255, 255, 0.25);
   z-index: 10;
 }
 
@@ -318,7 +319,8 @@ body {
 .title-row {
   display: inline-block;
   padding: 0.08em 0.2em;
-  background: rgba(255, 255, 255, 0.35);
+  /*background: rgba(255, 255, 255, 0.35);*/
+  background: transparent;
   border-radius: 6px;
 }
 
@@ -403,7 +405,8 @@ body {
   padding-top: clamp(100px, 15vh, 180px);
   padding-bottom: clamp(120px, 18vh, 220px);
   padding-inline: var(--fluid-gutter);
-  background: transparent;
+  /*background: transparent;*/
+  background: rgba(255, 255, 255, 0.25);
   z-index: 1;
 }
 
