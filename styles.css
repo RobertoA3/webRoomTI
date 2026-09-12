@@ -334,8 +334,12 @@ body {
   line-height: 1.45;
   letter-spacing: 0;
   color: #000000;
-  max-width: 620px;
+  max-width: 1000px;
   margin: 0 auto;
+}
+
+.section-copy strong {
+  font-weight: 700;
 }
 
 .hero-cta {
