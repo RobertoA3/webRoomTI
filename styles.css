@@ -592,16 +592,55 @@ body {
 /* Grid de Servicios RoomTI (Extraídos de www.roomti.cl) */
 .roomti-services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(28px, 3.5vw, 40px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
   margin-bottom: clamp(64px, 8vh, 96px);
 }
 
 .service-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-content: center;
+  align-items: center;
   border-top: 1px solid var(--color-blue-border);
-  padding-top: 26px;
+  min-height: clamp(220px, 26vw, 340px);
+  padding-block: 26px;
+}
+
+.service-block:last-child {
+  border-bottom: 1px solid var(--color-blue-border);
+}
+
+.service-block::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: stretch;
+  border-right: 1px solid var(--color-blue-border);
+}
+
+.service-copy-left {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: center;
   display: flex;
   flex-direction: column;
+  padding: 0 clamp(24px, 4vw, 64px);
+}
+
+.service-copy-left .service-icon-label,
+.service-copy-left .service-name,
+.service-copy-left .service-description {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.service-icon-label,
+.service-name,
+.service-description {
+  grid-column: 2;
+  margin-left: clamp(24px, 4vw, 64px);
+  margin-right: clamp(16px, 2vw, 32px);
 }
 
 .service-icon-label {
