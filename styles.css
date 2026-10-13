@@ -406,6 +406,7 @@ body {
 .section-clinical-rooms {
   position: relative;
   width: 100%;
+  scroll-margin-top: 88px;
   padding-top: clamp(24px, 4vh, 52px);
   padding-bottom: clamp(120px, 18vh, 220px);
   padding-inline: var(--fluid-gutter);
@@ -423,6 +424,38 @@ body {
 .editorial-header {
   max-width: 760px;
   margin-bottom: clamp(28px, 4vh, 52px);
+}
+
+.platform-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
+  margin-bottom: clamp(48px, 7vh, 88px);
+}
+
+.platform-intro-grid .editorial-header {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.platform-intro-grid .section-heading {
+  font-size: calc(clamp(48px, 6.3vw, 102px) - 1pt);
+}
+
+.platform-objectives-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.platform-objectives-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .section-heading {
@@ -863,6 +896,15 @@ body {
 
   .white-section-inner {
     padding-inline: 22px;
+  }
+
+  .platform-intro-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .platform-objectives-frame {
+    aspect-ratio: 948 / 520;
   }
 
   .roomti-services-grid {
