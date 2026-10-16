@@ -21,7 +21,7 @@
        ========================================================================= -->
   <div class="global-background-stage" aria-hidden="true">
     <img 
-      src="graficas/sequence/frame_0001.jpg" 
+      src="graficas/sequence/frame_0001.webp"
       alt="Habitación hospitalaria RoomTI" 
       class="global-initial-frame" 
       id="global-initial-frame"
@@ -38,7 +38,7 @@
     <!-- Barra Superior: Marca RoomTI y Navegación en Azul Clínico -->
     <div class="hero-topbar">
       <a href="#hero" class="section-brand" aria-label="RoomTI Inicio">
-        <img src="graficas/logoA3RoomTI.png" alt="RoomTI" class="brand-logo">
+        <img src="graficas/logoA3RoomTI.webp" alt="RoomTI" class="brand-logo">
       </a>
       <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav-menu" aria-label="Abrir menú">
         <span></span>
@@ -171,7 +171,7 @@
               </p>
             </div>
             <div class="platform-objectives-frame">
-              <img src="graficas/roomti-nuestros-objetivos.png" alt="Objetivos de la plataforma RoomTI" class="platform-objectives-image">
+              <img src="graficas/roomti-nuestros-objetivos.webp" alt="Objetivos de la plataforma RoomTI" class="platform-objectives-image">
             </div>
           </div>
 
@@ -184,11 +184,9 @@
                 <h3 class="service-name">Múltiples Workflows Automatizados</h3>
                 <p class="service-description">El centro hospitalario define las actividades precisas por tipo de habitación: camas de hospitalización, UCI, pabellones de cirugía, box de atenciones o salas de recuperación.</p>
               </div>
-              <div class="service-icon-label">IMAGEN 1</div>
-              <h3 class="service-name">Imagen 1</h3>
-              <p class="service-description">
-                Imagen 1.
-              </p>
+              <button class="service-image-trigger" type="button" aria-label="Ampliar diagrama RoomTI Hospital Bed Management Workflow">
+                <img src="graficas/RoomTI%20Hospital%20Bed%20Management%20Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow" class="service-image">
+              </button>
             </div>
 
             <div class="service-block">
@@ -258,6 +256,11 @@
 
           </div>
 
+          <dialog class="image-modal" id="workflow-image-modal" aria-label="Diagrama RoomTI ampliado">
+            <button class="image-modal-close" type="button" aria-label="Cerrar imagen">×</button>
+            <img src="graficas/RoomTI%20Hospital%20Bed%20Management%20Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow ampliado" class="image-modal-content">
+          </dialog>
+
           <!-- Métricas de Impacto RoomTI -->
           <div class="roomti-metrics-row">
             <div class="metric-item">
@@ -292,7 +295,7 @@
               <figure class="bed-figure">
                 <div class="image-wrapper">
                   <img 
-                    src="graficas/cama_hospital_lateral.jpg" 
+                    src="graficas/cama_hospital_lateral.webp"
                     alt="Cama hospitalaria RoomTI en perfil lateral ergonómico con articulación en 4 planos y panel de control"
                     class="bed-img"
                     loading="lazy"
@@ -310,7 +313,7 @@
               <figure class="bed-figure">
                 <div class="image-wrapper">
                   <img 
-                    src="graficas/cama_hospital_perspectiva.jpg" 
+                    src="graficas/cama_hospital_perspectiva.webp"
                     alt="Cama clínica RoomTI en perspectiva tres cuartos dentro de una habitación hospitalaria preparada con luz natural"
                     class="bed-img"
                     loading="lazy"

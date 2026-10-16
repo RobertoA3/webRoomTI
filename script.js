@@ -33,6 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('global-sequence-canvas');
   const initialFrameImg = document.getElementById('global-initial-frame');
   const whiteSection = document.getElementById('plataforma');
+  const imageModal = document.getElementById('workflow-image-modal');
+  const imageModalTrigger = document.querySelector('.service-image-trigger');
+  const imageModalClose = imageModal?.querySelector('.image-modal-close');
+
+  if (imageModal && imageModalTrigger && typeof imageModal.showModal === 'function') {
+    imageModalTrigger.addEventListener('click', () => imageModal.showModal());
+    imageModalClose?.addEventListener('click', () => imageModal.close());
+    imageModal.addEventListener('click', (event) => {
+      if (event.target === imageModal) imageModal.close();
+    });
+  }
 
   if (!canvas) return;
 
@@ -42,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Generador de rutas para los 120 fotogramas
   const getFramePath = (index) => {
     const padded = String(index + 1).padStart(4, '0');
-    return `graficas/sequence/frame_${padded}.jpg`;
+    return `graficas/sequence/frame_${padded}.webp`;
   };
 
   // Almacén de imágenes en memoria

@@ -5,6 +5,6 @@
 
 ## Scroll sequence assets
 
-- The fixed background canvas is driven by `TOTAL_FRAMES = 120` in `script.js`. It requires the consecutively named JPEGs `graficas/sequence/frame_0001.jpg` through `frame_0120.jpg`; keep the count, 1-based four-digit naming, and constant in sync when changing the sequence.
-- `frame_0001.jpg` is also the eager HTML fallback. Keep it available, and retain the reduced-motion behavior, which shows that static frame instead of the canvas animation.
+- The fixed background canvas is driven by `TOTAL_FRAMES = 120` in `script.js`. It requires the consecutively named WebP files `graficas/sequence/frame_0001.webp` through `frame_0120.webp`; keep the count, 1-based four-digit naming, and constant in sync when changing the sequence.
+- `frame_0001.webp` is also the eager HTML fallback. Keep it available, and retain the reduced-motion behavior, which shows that static frame instead of the canvas animation.
 - `graficas/` holds production images and video. `scratch/` contains sample extraction artifacts, not files used by the page.
