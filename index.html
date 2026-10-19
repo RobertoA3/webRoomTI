@@ -185,16 +185,14 @@
                 <p class="service-description">El centro hospitalario define las actividades precisas por tipo de habitación: camas de hospitalización, UCI, pabellones de cirugía, box de atenciones o salas de recuperación.</p>
               </div>
               <button class="service-image-trigger" type="button" aria-label="Ampliar diagrama RoomTI Hospital Bed Management Workflow">
-                <img src="graficas/RoomTI%20Hospital%20Bed%20Management%20Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow" class="service-image">
+                <img src="graficas/RoomTI_Hospital_Bed_Management_Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow" class="service-image">
               </button>
             </div>
 
-            <div class="service-block">
-              <div class="service-copy-left" aria-hidden="true">
-                <div class="service-icon-label">IMAGEN 2</div>
-                <h3 class="service-name">Imagen 2</h3>
-                <p class="service-description">Imagen 2.</p>
-              </div>
+            <div class="service-block service-block-infographic">
+              <button class="service-image-trigger service-image-trigger-left" type="button" aria-label="Ampliar infografía de funcionalidades RoomTI" aria-haspopup="dialog" aria-controls="workflow-image-modal">
+                <img src="graficas/RoomTI_Feature_Infographic.png" alt="Infografía de funcionalidades de la plataforma RoomTI" class="service-image" width="1774" height="887" loading="lazy">
+              </button>
               <div class="service-icon-label">APLICACIÓN MÓVIL</div>
               <h3 class="service-name">App Móvil Colaborativa</h3>
               <p class="service-description">
@@ -202,80 +200,92 @@
               </p>
             </div>
 
-            <div class="service-block">
+            <div class="service-block service-block-dashboard">
               <div class="service-copy-left" aria-hidden="true">
-                <div class="service-icon-label">CONTROL DE SLA</div>
-                <h3 class="service-name">Aplicación de SLA y Alarmas</h3>
-                <p class="service-description">Establece tiempos promedio de preparación con alertas preventivas y permite evaluar con precisión los contratos externalizados de aseo y mantenimiento.</p>
+                <div class="service-icon-label">GESTIÓN DE CAMAS</div>
+                <h3 class="service-name">Unidad de Gestión de Camas (UGC)</h3>
+                <p class="service-description">Visión clara y precisa del estado de preparación de cada cama para el siguiente paciente, agilizando la asignación y evitando traspasos pendientes entre turnos.</p>
               </div>
-              <div class="service-icon-label">IMAGEN 3</div>
-              <h3 class="service-name">Imagen 3</h3>
-              <p class="service-description">
-                Imagen 3.
-              </p>
-            </div>
-
-            <div class="service-block">
-              <div class="service-copy-left" aria-hidden="true">
-                <div class="service-icon-label">IMAGEN 4</div>
-                <h3 class="service-name">Imagen 4</h3>
-                <p class="service-description">Imagen 4.</p>
-              </div>
-              <div class="service-icon-label">GESTIÓN DE CAMAS</div>
-              <h3 class="service-name">Unidad de Gestión de Camas (UGC)</h3>
-              <p class="service-description">
-                Visión clara y precisa del estado de preparación de cada cama para el siguiente paciente, agilizando la asignación y evitando traspasos pendientes entre turnos.
-              </p>
-            </div>
-
-            <div class="service-block">
-              <div class="service-copy-left" aria-hidden="true">
-                <div class="service-icon-label">PREDICCIÓN</div>
-                <h3 class="service-name">Predicción de Liberación</h3>
-                <p class="service-description">Modelos predictivos que anticipan la disponibilidad de habitaciones para optimizar los ingresos programados y las derivaciones de urgencia.</p>
-              </div>
-              <div class="service-icon-label">IMAGEN 5</div>
-              <h3 class="service-name">Imagen 5</h3>
-              <p class="service-description">
-                Imagen 5.
-              </p>
-            </div>
-
-            <div class="service-block">
-              <div class="service-copy-left" aria-hidden="true">
-                <div class="service-icon-label">IMAGEN 6</div>
-                <h3 class="service-name">Imagen 6</h3>
-                <p class="service-description">Imagen 6.</p>
-              </div>
-              <div class="service-icon-label">COMUNICACIÓN</div>
-              <h3 class="service-name">Resolución de Imponderables</h3>
-              <p class="service-description">
-                Mensajería instantánea integrada para atender contingencias, incidencias clínicas o requerimientos especiales en un tiempo mínimo.
-              </p>
+              <button class="service-image-trigger" type="button" aria-label="Ampliar dashboard RoomTI" aria-haspopup="dialog" aria-controls="workflow-image-modal">
+                <img src="graficas/RoomTI_Dashboard.png" alt="Dashboard de gestión de camas de RoomTI" class="service-image" width="1774" height="887" loading="lazy">
+              </button>
             </div>
 
           </div>
 
           <dialog class="image-modal" id="workflow-image-modal" aria-label="Diagrama RoomTI ampliado">
             <button class="image-modal-close" type="button" aria-label="Cerrar imagen">×</button>
-            <img src="graficas/RoomTI%20Hospital%20Bed%20Management%20Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow ampliado" class="image-modal-content">
+            <img src="graficas/RoomTI_Hospital_Bed_Management_Workflow.webp" alt="Diagrama RoomTI Hospital Bed Management Workflow ampliado" class="image-modal-content">
           </dialog>
 
           <!-- Métricas de Impacto RoomTI -->
           <div class="roomti-metrics-row">
             <div class="metric-item">
               <div class="metric-value">-40%</div>
-              <div class="metric-label">Tiempo de preparación de habitación</div>
+              <div class="metric-label">Tiempo de cliclado de camas</div>
             </div>
             <div class="metric-item">
               <div class="metric-value">100%</div>
-              <div class="metric-label">Trazabilidad del proceso de aseo y desinfección</div>
+              <div class="metric-label">Trazabilidad del proceso de alta y preparación</div>
             </div>
             <div class="metric-item">
               <div class="metric-value">Real-Time</div>
-              <div class="metric-label">Visibilidad de camas libres y en preparación</div>
+              <div class="metric-label">Visibilidad 360 de camas y sus estados</div>
             </div>
           </div>
+
+          <section class="video-con-pasillo" id="video_con_pasillo" aria-label="Recorrido RoomTI: de la habitación a la gestión de camas">
+            <div class="pasillo-stage" aria-hidden="true">
+              <div class="pasillo-visual">
+                <img class="pasillo-fallback" src="graficas/pasillo-sequence/frame_0001.webp" alt="" width="1280" height="720" loading="lazy">
+                <canvas class="pasillo-canvas"></canvas>
+              </div>
+            </div>
+            <div class="pasillo-steps">
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">01 / 06</span>
+                  <h3>Cada habitación, lista para recibir</h3>
+                  <p>La atención comienza con una habitación preparada. RoomTI hace visible la disponibilidad de camas para facilitar el ingreso del próximo paciente.</p>
+                </div>
+              </article>
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">02 / 06</span>
+                  <h3>Del alta a la preparación</h3>
+                  <p>Conecta el alta, el traslado, el aseo y la habilitación de la habitación en un flujo de trabajo con seguimiento de cada etapa.</p>
+                </div>
+              </article>
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">03 / 06</span>
+                  <h3>Equipos coordinados en cada paso</h3>
+                  <p>Las notificaciones y la comunicación entre equipos ayudan a resolver pendientes y dar continuidad a la preparación, incluso entre turnos.</p>
+                </div>
+              </article>
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">04 / 06</span>
+                  <h3>Una visión completa, en tiempo real</h3>
+                  <p>El equipo de gestión de camas reúne estados, tiempos y alertas en una sola vista para coordinar la disponibilidad hospitalaria.</p>
+                </div>
+              </article>
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">05 / 06</span>
+                  <h3>Tiempos de preparación bajo control</h3>
+                  <p>El seguimiento de tiempos y las alertas de SLA permiten detectar demoras y coordinar las tareas pendientes para habilitar cada habitación.</p>
+                </div>
+              </article>
+              <article class="pasillo-step">
+                <div class="pasillo-copy">
+                  <span class="pasillo-step-number" aria-hidden="true">06 / 06</span>
+                  <h3>Disponibilidad para el próximo ingreso</h3>
+                  <p>Relaciona las solicitudes de hospitalización, urgencia y traslado con el estado de las camas para facilitar la asignación al siguiente paciente.</p>
+                </div>
+              </article>
+            </div>
+          </section>
 
           <!-- =========================================================================
                GALERÍA DE CAMAS HOSPITALARIAS (2 Imágenes en Alta Definición y Diferentes Ángulos)

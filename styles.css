@@ -656,6 +656,21 @@ body {
   object-fit: contain;
 }
 
+.service-image-trigger-left {
+  grid-column: 1;
+  margin: 0 clamp(24px, 4vw, 64px);
+}
+
+.service-image-trigger-left .service-image,
+.service-block-dashboard .service-image {
+  height: auto;
+}
+
+.service-image-trigger:focus-visible {
+  outline: 2px solid var(--color-blue-accent);
+  outline-offset: 4px;
+}
+
 .image-modal {
   position: fixed;
   inset: 0;
@@ -776,6 +791,122 @@ body {
    Muestra dos vistas técnicas del equipamiento clínico con leyendas descriptivas,
    reforzando el valor visual del producto hospitalario.
    ========================================================================== */
+
+.video-con-pasillo {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-bottom: clamp(80px, 10vh, 120px);
+  text-align: left;
+  background: var(--color-white);
+}
+
+.video-con-pasillo::before,
+.video-con-pasillo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(96px, 15vh, 200px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.video-con-pasillo::before {
+  top: 0;
+  background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0.75) 30%, rgba(255, 255, 255, 0) 100%);
+}
+
+.video-con-pasillo::after {
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 70%, #fff 100%);
+}
+
+.pasillo-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+}
+
+.pasillo-visual {
+  position: absolute;
+  inset: 0;
+}
+
+.pasillo-fallback,
+.pasillo-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pasillo-canvas {
+  opacity: 0;
+}
+
+.pasillo-canvas.is-ready {
+  opacity: 1;
+}
+
+.pasillo-steps {
+  position: relative;
+  z-index: 2;
+  margin-top: -100vh;
+  margin-top: -100svh;
+  pointer-events: none;
+}
+
+.pasillo-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1.17fr) minmax(0, 1.06fr) minmax(0, 1.17fr);
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 48px var(--fluid-gutter);
+}
+
+.pasillo-copy {
+  grid-column: 1;
+  padding: clamp(23.4px, 2.574vw, 42.12px);
+  border: 1px solid var(--color-blue-border);
+  border-radius: var(--radius-max);
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: auto;
+}
+
+.pasillo-step:nth-child(even) .pasillo-copy {
+  grid-column: 3;
+}
+
+.pasillo-step-number {
+  display: block;
+  margin-bottom: 23.4px;
+  color: var(--color-blue-accent);
+  font-size: calc(12px + 2pt);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.pasillo-copy h3 {
+  margin-bottom: 18.72px;
+  font-size: calc(clamp(23px, 2.3vw, 38px) + 2pt);
+  font-weight: 520;
+  line-height: 1.1;
+  color: var(--color-blue-dark);
+  overflow-wrap: anywhere;
+}
+
+.pasillo-copy p {
+  font-size: calc(clamp(14px, 1.15vw, 17px) + 2pt);
+  line-height: 1.5;
+  color: var(--color-blue-muted);
+}
 
 .beds-gallery-section {
   width: 100%;
@@ -1021,6 +1152,42 @@ body {
     gap: 28px;
   }
 
+  .service-block-infographic,
+  .service-block-dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .service-block-infographic::before,
+  .service-block-dashboard::before {
+    content: none;
+  }
+
+  .service-block-infographic .service-image-trigger-left {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0 0 24px;
+  }
+
+  .service-block-infographic > .service-icon-label,
+  .service-block-infographic > .service-name,
+  .service-block-infographic > .service-description {
+    grid-column: 1;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .service-block-dashboard .service-copy-left {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+  }
+
+  .service-block-dashboard .service-image-trigger {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 24px 0 0;
+  }
+
   .roomti-metrics-row {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -1030,6 +1197,10 @@ body {
   .beds-gallery-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .video-con-pasillo {
+    display: none;
   }
 
   .roomti-contact-box {
@@ -1053,6 +1224,29 @@ body {
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  .pasillo-stage {
+    position: relative;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .pasillo-visual {
+    inset: 0;
+  }
+
+  .pasillo-canvas {
+    display: none;
+  }
+
+  .pasillo-steps {
+    margin-top: 0;
+  }
+
+  .pasillo-step {
+    min-height: 0;
+    padding-block: 24px;
+  }
+
   .global-canvas {
     display: none !important;
   }

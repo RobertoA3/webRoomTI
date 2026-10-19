@@ -34,16 +34,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const initialFrameImg = document.getElementById('global-initial-frame');
   const whiteSection = document.getElementById('plataforma');
   const imageModal = document.getElementById('workflow-image-modal');
-  const imageModalTrigger = document.querySelector('.service-image-trigger');
+  const imageModalTriggers = document.querySelectorAll('.service-image-trigger');
+  const imageModalContent = imageModal?.querySelector('.image-modal-content');
   const imageModalClose = imageModal?.querySelector('.image-modal-close');
 
-  if (imageModal && imageModalTrigger && typeof imageModal.showModal === 'function') {
-    imageModalTrigger.addEventListener('click', () => imageModal.showModal());
+  if (imageModal && imageModalContent && typeof imageModal.showModal === 'function') {
+    imageModalTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const image = trigger.querySelector('img');
+        if (!image) return;
+        imageModalContent.src = image.currentSrc || image.src;
+        imageModalContent.alt = image.alt;
+        imageModal.setAttribute('aria-label', image.alt);
+        imageModal.showModal();
+      });
+    });
     imageModalClose?.addEventListener('click', () => imageModal.close());
     imageModal.addEventListener('click', (event) => {
       if (event.target === imageModal) imageModal.close();
     });
   }
+
+  initPasilloSequence();
 
   if (!canvas) return;
 
@@ -217,3 +229,141 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Secuencia independiente del recorrido: carga cercana al viewport y caché acotada.
+function initPasilloSequence() {
+  const section = document.getElementById('video_con_pasillo');
+  const canvas = section?.querySelector('.pasillo-canvas');
+  const context = canvas?.getContext('2d', { alpha: false });
+  if (!context) return;
+
+  const PASILLO_TOTAL_FRAMES = 120;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile = window.matchMedia('(max-width: 760px)');
+  const frames = new Map();
+  const failed = new Set();
+  let active = false;
+  let pending = false;
+  let loading = 0;
+  let target = 0;
+  let drawn = -1;
+
+  const paint = () => {
+    let nearest = -1;
+    for (const [index, frame] of frames) {
+      if (frame.loaded && (nearest < 0 || Math.abs(index - target) < Math.abs(nearest - target))) {
+        nearest = index;
+      }
+    }
+    if (nearest < 0 || nearest === drawn) return;
+    const image = frames.get(nearest).image;
+    // Llena el área visible sin franjas, manteniendo la proporción y el centro.
+    const scale = Math.max(canvas.width / image.naturalWidth, canvas.height / image.naturalHeight);
+    const width = image.naturalWidth * scale;
+    const height = image.naturalHeight * scale;
+    context.drawImage(image, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
+    drawn = nearest;
+    canvas.classList.add('is-ready');
+  };
+
+  const trimCache = () => {
+    for (const [index, frame] of frames) {
+      if (frame.loaded && index !== drawn && (!active || Math.abs(index - target) > 8)) {
+        frames.delete(index);
+      }
+    }
+  };
+
+  const loadNearby = () => {
+    if (!active || motion.matches || mobile.matches) return;
+    // Prioriza el destino actual, incluso al saltar o invertir el scroll.
+    const nearby = [target];
+    for (let offset = 1; offset <= 4; offset++) nearby.push(target + offset, target - offset);
+    trimCache();
+    for (const index of nearby) {
+      if (loading >= 4) break;
+      if (index < 0 || index >= PASILLO_TOTAL_FRAMES || frames.has(index) || failed.has(index)) continue;
+      const image = new Image();
+      const frame = { image, loaded: false };
+      frames.set(index, frame);
+      loading++;
+      image.onload = () => {
+        loading--;
+        frame.loaded = true;
+        if (active && !motion.matches) scheduleUpdate();
+        else trimCache();
+      };
+      image.onerror = () => {
+        loading--;
+        frames.delete(index);
+        failed.add(index);
+        if (active && !motion.matches) scheduleUpdate();
+      };
+      image.src = `graficas/pasillo-sequence/frame_${String(index + 1).padStart(4, '0')}.webp`;
+    }
+  };
+
+  const update = () => {
+    pending = false;
+    if (!active || motion.matches || mobile.matches) return;
+    const bounds = section.getBoundingClientRect();
+    const stage = section.querySelector('.pasillo-stage');
+    const distance = Math.max(1, section.offsetHeight - stage.offsetHeight);
+    const progress = Math.max(0, Math.min(1, -bounds.top / distance));
+    target = Math.round(progress * (PASILLO_TOTAL_FRAMES - 1));
+    loadNearby();
+    paint();
+  };
+
+  function scheduleUpdate() {
+    if (!pending) {
+      pending = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+
+  const resize = () => {
+    if (mobile.matches) {
+      frames.clear();
+      drawn = -1;
+      canvas.classList.remove('is-ready');
+      canvas.width = 1;
+      canvas.height = 1;
+      return;
+    }
+    const bounds = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const width = Math.max(1, Math.round(bounds.width * dpr));
+    const height = Math.max(1, Math.round(bounds.height * dpr));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+      drawn = -1;
+      if (!motion.matches) paint();
+    }
+    scheduleUpdate();
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      active = entry.isIntersecting;
+      if (active) scheduleUpdate();
+      else trimCache();
+    }, { rootMargin: '600px 0px' });
+    observer.observe(section);
+  } else {
+    active = true;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (active && !motion.matches && !mobile.matches) scheduleUpdate();
+  }, { passive: true });
+  window.addEventListener('resize', resize, { passive: true });
+  motion.addEventListener('change', () => {
+    canvas.classList.remove('is-ready');
+    drawn = -1;
+    trimCache();
+    resize();
+  });
+  resize();
+}
