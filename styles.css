@@ -1109,6 +1109,114 @@ body {
   text-underline-offset: 3px;
 }
 
+.demo-modal {
+  position: fixed;
+  inset: 0;
+  width: min(680px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-max);
+  background: var(--color-white);
+  color: var(--color-blue-dark);
+  overflow: auto;
+}
+
+.demo-modal::backdrop {
+  background: rgba(5, 20, 42, 0.72);
+}
+
+.demo-modal-panel {
+  position: relative;
+  padding: clamp(24px, 5vw, 44px);
+}
+
+.demo-modal .contact-title {
+  padding-right: 32px;
+  font-size: clamp(26px, 3vw, 34px);
+}
+
+.demo-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-blue-light);
+  color: var(--color-blue-dark);
+  font: inherit;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.demo-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.demo-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.demo-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.demo-form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.demo-form input,
+.demo-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-blue-border);
+  border-radius: var(--radius-max);
+  background: var(--color-white);
+  color: var(--color-blue-dark);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.demo-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.demo-form [aria-invalid="true"] {
+  border-color: #a32626;
+}
+
+.demo-field-error {
+  color: #a32626;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.demo-modal :focus-visible {
+  outline: 2px solid var(--color-blue-accent);
+  outline-offset: 3px;
+}
+
+.demo-form .btn,
+#demo-request-trigger {
+  font-family: inherit;
+}
+
+html:has(.demo-modal[open]) {
+  overflow: hidden;
+}
+
 .white-footer {
   display: flex;
   justify-content: space-between;
@@ -1276,6 +1384,10 @@ body {
     align-items: flex-start;
     padding: 28px;
     gap: 24px;
+  }
+
+  .demo-form {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .white-footer {

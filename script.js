@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  initDemoRequestForm();
   initBedsCarousel();
   initPasilloSequence();
 
@@ -230,6 +231,96 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Reglas de texto por campo. No decodificar entidades ni interpretar estos valores como HTML.
+// Al conectar un backend, repetir la validación allí y codificar la salida según su contexto.
+const DEMO_TEXT_RULES = {
+  name: /^[\p{L}\p{M}\p{Zs}.'’\-]*$/u,
+  company: /^[\p{L}\p{M}\p{N}\p{Zs}.,'’&()+/#ºª°\-]*$/u,
+  role: /^[\p{L}\p{M}\p{N}\p{Zs}.,'’&()+/#ºª°\-]*$/u,
+  email: /^[A-Za-z0-9.!#$%&'*+/=?^_~@\-]*$/u,
+  message: /^[\p{L}\p{M}\p{N}\p{Zs}\p{P}\r\n+€$%]*$/u,
+};
+
+function isDemoTextAllowed(name, value) {
+  return Boolean(DEMO_TEXT_RULES[name]?.test(value)) && !/[<>{}`\\]/u.test(value);
+}
+
+function getDemoFieldError(field) {
+  const value = field.value.normalize('NFC');
+  if (field.required && !value.trim()) return 'Este campo es obligatorio.';
+  if (field.maxLength > 0 && value.length > field.maxLength) return `Usa como máximo ${field.maxLength} caracteres.`;
+  if (!isDemoTextAllowed(field.name, value)) return 'Usa texto simple, sin etiquetas HTML, código ni caracteres de control.';
+  if (field.type === 'email' && field.validity.typeMismatch) return 'Ingresa un correo válido, por ejemplo nombre@empresa.cl.';
+  return '';
+}
+
+function initDemoRequestForm() {
+  const trigger = document.getElementById('demo-request-trigger');
+  const dialog = document.getElementById('demo-request-modal');
+  const form = document.getElementById('demo-request-form');
+  if (!trigger || !dialog || !form) return;
+
+  const fields = Array.from(form.querySelectorAll('input, textarea'));
+  const validateField = (field) => {
+    const message = getDemoFieldError(field);
+    field.setCustomValidity(message);
+    field.setAttribute('aria-invalid', String(Boolean(message)));
+    const error = document.getElementById(`${field.id}-error`);
+    error.textContent = message;
+    error.hidden = !message;
+    return !message;
+  };
+
+  fields.forEach((field) => {
+    const error = document.createElement('small');
+    error.id = `${field.id}-error`;
+    error.className = 'demo-field-error';
+    error.setAttribute('aria-live', 'polite');
+    error.hidden = true;
+    field.after(error);
+    field.setAttribute('aria-describedby', error.id);
+
+    const rejectInvalidInsertion = (event, text) => {
+      if (typeof text !== 'string' || event.isComposing) return;
+      const start = field.selectionStart ?? field.value.length;
+      const end = field.selectionEnd ?? start;
+      const candidate = field.value.slice(0, start) + text + field.value.slice(end);
+      if (!isDemoTextAllowed(field.name, candidate)) {
+        event.preventDefault();
+        error.textContent = 'Ese contenido no está permitido. Ingresa texto simple, sin código ni etiquetas HTML.';
+        error.hidden = false;
+      }
+    };
+
+    field.addEventListener('beforeinput', (event) => {
+      if (event.inputType.startsWith('insert')) rejectInvalidInsertion(event, event.data);
+    });
+    field.addEventListener('paste', (event) => {
+      rejectInvalidInsertion(event, event.clipboardData?.getData('text/plain'));
+    });
+    field.addEventListener('input', (event) => {
+      if (!event.isComposing) validateField(field);
+    });
+    field.addEventListener('compositionend', () => validateField(field));
+    field.addEventListener('blur', () => validateField(field));
+  });
+
+  trigger.addEventListener('click', () => dialog.showModal());
+  dialog.querySelector('.demo-modal-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+    }
+  });
+
+  // El envío queda sin acción hasta que se conecte un servicio de contacto.
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    fields.forEach(validateField);
+  });
+}
 
 function initBedsCarousel() {
   const carousel = document.querySelector('.beds-carousel');

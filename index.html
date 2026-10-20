@@ -383,9 +383,42 @@
               </div>
             </div>
             <div class="contact-action-col">
-              <a href="https://www.roomti.cl" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Solicitar Demostración</a>
+              <button class="btn btn-primary btn-large" id="demo-request-trigger" type="button" aria-haspopup="dialog" aria-controls="demo-request-modal">Solicitar Demostración</button>
             </div>
           </div>
+
+          <dialog class="demo-modal" id="demo-request-modal" aria-labelledby="demo-request-title" aria-describedby="demo-request-description">
+            <div class="demo-modal-panel">
+              <button class="demo-modal-close" type="button" aria-label="Cerrar formulario">×</button>
+              <h2 class="contact-title" id="demo-request-title">Solicitar una demostración</h2>
+              <p class="contact-desc" id="demo-request-description">Cuéntanos sobre tu institución y cómo podemos ayudarte con la gestión de camas.</p>
+              <form class="demo-form" id="demo-request-form">
+                <div class="demo-form-field demo-form-field-full">
+                  <label for="demo-name">Nombre completo <span aria-hidden="true">*</span></label>
+                  <input id="demo-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+                </div>
+                <div class="demo-form-field">
+                  <label for="demo-company">Empresa</label>
+                  <input id="demo-company" name="company" type="text" autocomplete="organization" maxlength="180">
+                </div>
+                <div class="demo-form-field">
+                  <label for="demo-role">Cargo</label>
+                  <input id="demo-role" name="role" type="text" autocomplete="organization-title" maxlength="120">
+                </div>
+                <div class="demo-form-field demo-form-field-full">
+                  <label for="demo-email">Correo <span aria-hidden="true">*</span></label>
+                  <input id="demo-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+                </div>
+                <div class="demo-form-field demo-form-field-full">
+                  <label for="demo-message">Mensaje (máximo 500 caracteres)</label>
+                  <textarea id="demo-message" name="message" rows="4" maxlength="500"></textarea>
+                </div>
+                <div class="demo-form-field-full">
+                  <button class="btn btn-primary" type="button">Enviar solicitud</button>
+                </div>
+              </form>
+            </div>
+          </dialog>
 
           <!-- Pie Institucional -->
           <footer class="white-footer">
