@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  initBedsCarousel();
   initPasilloSequence();
 
   if (!canvas) return;
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Generador de rutas para los 120 fotogramas
   const getFramePath = (index) => {
     const padded = String(index + 1).padStart(4, '0');
-    return `graficas/sequence/frame_${padded}.webp`;
+    return `graficas/sequence/frame_${padded}.webp?v=20261020-lossless`;
   };
 
   // Almacén de imágenes en memoria
@@ -230,6 +231,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+function initBedsCarousel() {
+  const carousel = document.querySelector('.beds-carousel');
+  if (!carousel) return;
+  const slides = Array.from(carousel.querySelectorAll('.bed-figure'));
+  const controls = carousel.querySelector('.beds-carousel-controls');
+  if (slides.length < 2 || !controls) return;
+  let current = 0;
+
+  const show = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, position) => {
+      slide.hidden = position !== current;
+    });
+    slides[current].querySelector('img').loading = 'eager';
+  };
+
+  carousel.querySelector('.carousel-arrow-prev').addEventListener('click', () => show(current - 1));
+  carousel.querySelector('.carousel-arrow-next').addEventListener('click', () => show(current + 1));
+  carousel.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    show(current + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  show(0);
+  controls.hidden = false;
+}
+
 // Secuencia independiente del recorrido: carga cercana al viewport y caché acotada.
 function initPasilloSequence() {
   const section = document.getElementById('video_con_pasillo');
@@ -299,7 +327,7 @@ function initPasilloSequence() {
         failed.add(index);
         if (active && !motion.matches) scheduleUpdate();
       };
-      image.src = `graficas/pasillo-sequence/frame_${String(index + 1).padStart(4, '0')}.webp`;
+      image.src = `graficas/pasillo-sequence/frame_${String(index + 1).padStart(4, '0')}.webp?v=20261020-lossless`;
     }
   };
 
