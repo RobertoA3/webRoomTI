@@ -1329,20 +1329,18 @@ html:has(.demo-modal[open]) {
     gap: 28px;
   }
 
-  .service-block-infographic,
-  .service-block-dashboard {
+  .service-block {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .service-block-infographic::before,
-  .service-block-dashboard::before {
+  .service-block::before {
     content: none;
   }
 
   .service-block-infographic .service-image-trigger-left {
     grid-column: 1;
-    grid-row: 1;
-    margin: 0 0 24px;
+    grid-row: 4;
+    margin: 24px 0 0;
   }
 
   .service-block-infographic > .service-icon-label,
@@ -1353,13 +1351,25 @@ html:has(.demo-modal[open]) {
     margin-right: 0;
   }
 
-  .service-block-dashboard .service-copy-left {
+  .service-block-infographic > .service-icon-label {
+    grid-row: 1;
+  }
+
+  .service-block-infographic > .service-name {
+    grid-row: 2;
+  }
+
+  .service-block-infographic > .service-description {
+    grid-row: 3;
+  }
+
+  .service-block .service-copy-left {
     grid-column: 1;
     grid-row: 1;
     padding: 0;
   }
 
-  .service-block-dashboard .service-image-trigger {
+  .service-block:not(.service-block-infographic) .service-image-trigger {
     grid-column: 1;
     grid-row: 2;
     margin: 24px 0 0;
